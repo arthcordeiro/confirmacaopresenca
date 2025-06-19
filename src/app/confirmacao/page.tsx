@@ -56,7 +56,7 @@ export default function ConfirmacaoPage() {
         };
 
         try {
-            const response = await fetch('http://localhost:3001/api/confirmations', { // Ajuste a URL se seu backend estiver em outra porta ou domínio
+            const response = await fetch('https://api.scriptsys.com.br:3001/api/confirmations', { // Ajuste a URL se seu backend estiver em outra porta ou domínio
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export default function ConfirmacaoPage() {
     // Modificar fetchConfirmedParticipants para popular sugestoesNomesPrincipais
     const fetchConfirmedParticipants = async () => {
         try {
-            const response = await fetch('http://localhost:3001/api/confirmations', {
+            const response = await fetch('https://api.scriptsys.com.br:3001/api/confirmations', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
