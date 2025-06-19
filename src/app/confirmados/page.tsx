@@ -17,7 +17,7 @@ export default function ConfirmadosPage() {
     // Modificar fetchConfirmedParticipants para popular sugestoesNomesPrincipais
     const fetchConfirmedParticipants = async () => {
         try {
-            const response = await fetch('https://api.scriptsys.com.br:3001/api/confirmations', {
+            const response = await fetch('https://api.scriptsys.com.br/api/confirmations', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
