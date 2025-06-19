@@ -3,6 +3,16 @@ import FlyingButterflies from "@/app/components/FlyingButterflies";
 import { Alert } from "@/app/components/Alert";
 import { Modal } from "@/app/components/Modal";
 import React, { useEffect, useState } from 'react'; // Importe useState
+import Image from 'next/image'
+
+interface IConfirmationDisplay {
+    id: string;
+    nomePrincipal: string;
+    numAdultos: number;
+    numCriancas: number;
+    acompanhantes: string[];
+    timestampConfirmacao: string;
+}
 
 export default function ConfirmacaoPage() {
     
@@ -14,13 +24,11 @@ export default function ConfirmacaoPage() {
     // Estado para controlar a visibilidade do modal
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [nomePrincipal, setNomePrincipal] = useState(''); // Pode pré-preencher com o nome do convidado da URL
-    const [principais, setPrincipais] = useState<string[]>([]); // Lista de nomes principais
     const [acompanhantes, setAcompanhantes] = useState<string[]>([]); // Lista de nomes dos acompanhantes
     const [novoAcompanhante, setNovoAcompanhante] = useState(''); // Estado para o input de novo acompanhante
     const [nomePrincipalError, setNomePrincipalError] = useState('');
     const [showAlert, setShowAlert] = useState(false);
     const [sugestoesNomesPrincipais, setSugestoesNomesPrincipais] = useState<string[]>([]);
-    const [listaConfirmados, setListaConfirmados] = useState<IConfirmationDisplay[]>([]); // Lista completa do backend
 
     
     const handleCloseAlert = () => setShowAlert(false);
@@ -73,10 +81,10 @@ export default function ConfirmacaoPage() {
             setAcompanhantes([]);
             setNovoAcompanhante('');
 
-        } catch (error: any) {
-            console.error('Erro ao enviar confirmação:', error.message);
+        } catch (error) {
+            console.error('Erro ao enviar confirmação:', error);
             // Exibir um alerta de erro para o usuário (você pode criar um componente Alert de erro)
-            alert(`Erro: ${error.message}`);
+            alert(`Erro: ${error}`);
         }
     };
 
@@ -108,14 +116,13 @@ export default function ConfirmacaoPage() {
 
             const result: IConfirmationDisplay[] = await response.json();
             console.log('Lista de participantes confirmados:', result);
-            setListaConfirmados(result);
 
             // Extrair apenas os nomes principais para as sugestões
             const nomesUnicos = Array.from(new Set(result.map(c => c.nomePrincipal)));
             setSugestoesNomesPrincipais(nomesUnicos);
 
-        } catch (error: any) {
-            console.error('Erro ao carregar participantes confirmados:', error.message);
+        } catch (error) {
+            console.error('Erro ao carregar participantes confirmados:', error);
         }
     };
 
@@ -127,10 +134,10 @@ export default function ConfirmacaoPage() {
         <div className="relative bg-cover bg-center h-screen flex flex-col p-8 font-[family-name:var(--font-geist-sans)]" style={backgroundImage}>
             <FlyingButterflies imageSrc="/butterfly_animated.gif" quantity={15} /> 
             <div className="flex justify-center items-start mt-0">
-                <img src="/um_aninho.png" alt="Logo" className="w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5 ml-2" />
+                <Image width={200} height={200} src="/um_aninho.png" alt="Logo" className="w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5 ml-2" />
             </div>
             <div className="flex flex-grow items-start justify-center text-center">
-                <img src="/sl17-8.png" alt="Logo" className="w-1/2 hidden-image ml-2" />
+                <Image width={200} height={200} src="/sl17-8.png" alt="Logo" className="w-1/2 hidden-image ml-2" />
             </div>
             <div className="mt-auto flex justify-center items-center pb-12">
                 <button 

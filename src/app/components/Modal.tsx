@@ -1,7 +1,7 @@
 // components/Modal.jsx
 "use client"; // Essencial para componentes que interagem com o DOM e estado do cliente
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom'; // Para renderizar o modal fora da hierarquia DOM normal
 
 interface ModalProps {

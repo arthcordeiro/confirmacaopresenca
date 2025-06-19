@@ -1,5 +1,5 @@
 'use client';
-
+import Image from 'next/image'
 import { useEffect, useState } from 'react';
 
 type Butterfly = {
@@ -59,16 +59,16 @@ export default function FlyingButterflies({ imageSrc, quantity = 10 }: FlyingBut
   return (
     <div className="pointer-events-none fixed inset-0 z-50">
       {butterflies.map((b) => (
-        <img
+        <Image
           key={b.id}
           src={imageSrc}
           alt="butterfly"
           className="absolute"
+          width={50}
+          height={50}
           style={{
             left: b.x,
             top: b.y,
-            width: 50,
-            height: 50,
             transform: `translate(-50%, -50%)`,
           }}
         />

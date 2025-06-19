@@ -1,6 +1,14 @@
 'use client';
 import { useEffect, useState } from "react";
 
+interface IConfirmationDisplay {
+    id: string;
+    nomePrincipal: string;
+    numAdultos: number;
+    numCriancas: number;
+    acompanhantes: string[];
+    timestampConfirmacao: string;
+}
 
 export default function ConfirmadosPage() {
 
@@ -25,8 +33,8 @@ export default function ConfirmadosPage() {
             console.log('Lista de participantes confirmados:', result);
             setListaConfirmados(result);
 
-        } catch (error: any) {
-            console.error('Erro ao carregar participantes confirmados:', error.message);
+        } catch (error) {
+            console.error('Erro ao carregar participantes confirmados:', error);
         }
     };
 
