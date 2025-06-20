@@ -136,9 +136,6 @@ export default function ConfirmacaoPage() {
             <div className="flex justify-center items-start mt-0">
                 <Image width={200} height={200} src="/um_aninho.png" alt="Logo" className="w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5 ml-2" />
             </div>
-            <div className="flex flex-grow items-start justify-center text-center">
-                <Image width={200} height={200} src="/sl17-8.png" alt="Logo" className="w-1/2 hidden-image ml-2" />
-            </div>
             <div className="mt-auto flex justify-center items-center pb-12">
                 <button 
                     className="justify-end bg-[#A03F4F] hover:bg-[#CB6A7C] text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300"
