@@ -16,11 +16,6 @@ interface IConfirmationDisplay {
 
 export default function ConfirmacaoPage() {
     
-    const backgroundImage = { 
-    //    backgroundImage: `url('/40x30@4x.png')`
-        backgroundImage: `url('/background.svg')`
-    }
-
     // Estado para controlar a visibilidade do modal
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [nomePrincipal, setNomePrincipal] = useState(''); // Pode pré-preencher com o nome do convidado da URL
@@ -28,8 +23,17 @@ export default function ConfirmacaoPage() {
     const [novoAcompanhante, setNovoAcompanhante] = useState(''); // Estado para o input de novo acompanhante
     const [nomePrincipalError, setNomePrincipalError] = useState('');
     const [showAlert, setShowAlert] = useState(false);
+    const [isButtonDisabled, setBtnDisabled] = useState(false);
     const [sugestoesNomesPrincipais, setSugestoesNomesPrincipais] = useState<string[]>([]);
 
+    useEffect(()=>{
+        if (novoAcompanhante) {
+            setBtnDisabled(true);
+        }
+        if (novoAcompanhante == '') {
+            setBtnDisabled(false);
+        }
+    }, [novoAcompanhante])
     
     const handleCloseAlert = () => setShowAlert(false);
 
@@ -54,6 +58,8 @@ export default function ConfirmacaoPage() {
             acompanhantes: acompanhantes,
             // timestampConfirmacao será gerado pelo backend
         };
+
+        console.log(confirmacaoData);
 
         try {
             const response = await fetch('https://api.scriptsys.com.br/api/confirmations', { // Ajuste a URL se seu backend estiver em outra porta ou domínio
@@ -93,6 +99,7 @@ export default function ConfirmacaoPage() {
             setAcompanhantes([...acompanhantes, novoAcompanhante.trim()]);
             setNovoAcompanhante(''); // Limpa o input após adicionar
         }
+        setBtnDisabled(false);
     };
 
     const handleRemoveAcompanhante = (nomeParaRemover: string) => {
@@ -131,7 +138,14 @@ export default function ConfirmacaoPage() {
     }, []);
   return (
     <>
-        <div className="relative bg-cover bg-center h-screen flex flex-col p-8 font-[family-name:var(--font-geist-sans)]" style={backgroundImage}>
+        <div className="relative h-screen flex flex-col p-8 font-[family-name:var(--font-geist-sans)]">
+            <Image
+                src="/background.svg" // ou '/40x30@4x.png', se for o caso
+                alt="Background"
+                layout="fill" // Faz a imagem cobrir o container
+                objectFit="cover" // Garante que a imagem cubra todo o espaço sem distorcer
+                style={{ zIndex: -1 }} // Coloca a imagem atrás do conteúdo
+            />
             <FlyingButterflies imageSrc="/butterfly_animated.gif" quantity={15} /> 
             <div className="flex justify-center items-start mt-0">
                 <Image width={200} height={200} src="/um_aninho.png" alt="Logo" className="w-1/2 md:w-1/3 lg:w-1/4 2xl:w-1/5 ml-2" />
@@ -204,6 +218,7 @@ export default function ConfirmacaoPage() {
                                 +
                             </button>
                         </div>
+                        {novoAcompanhante && (<p className="text-red-500 text-xs italic my-1">Pressione o botão "+" para confirmar seu acompanhate!</p>)}
 
                         {/* Lista de Acompanhantes Adicionados */}
                         {acompanhantes.length > 0 && (
@@ -229,7 +244,8 @@ export default function ConfirmacaoPage() {
                     </div>
                     <button
                         type="submit"
-                        className="bg-[#A03F4F] hover:bg-[#CB6A7C] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        className={`bg-[#A03F4F] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${isButtonDisabled ? 'bg-gray-200 cursor-not-allowed' : 'bg-[#A03F4F] hover:bg-[#CB6A7C]' }`}
+                        disabled={isButtonDisabled}
                     >
                         Enviar Confirmação
                     </button>

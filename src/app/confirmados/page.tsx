@@ -44,9 +44,9 @@ export default function ConfirmadosPage() {
 
 
     return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#D9BCBC]">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#D9BCBC] p-4">
       <h1 className="text-4xl font-bold text-[#96B780] mb-8">Lista de Confirmados</h1>
-        <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6">
+        <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6 max-h-[70vh] overflow-y-auto">
             <ul className="space-y-4">
             {listaConfirmados.map((confirmado) => (
                 <li key={confirmado.id} className="p-4 border-b border-gray-200">
