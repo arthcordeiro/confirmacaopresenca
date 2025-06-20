@@ -218,7 +218,7 @@ export default function ConfirmacaoPage() {
                                 +
                             </button>
                         </div>
-                        {novoAcompanhante && (<p className="text-red-500 text-xs italic my-1">Pressione o botão "+" para confirmar seu acompanhate!</p>)}
+                        {novoAcompanhante && (<p className="text-red-500 text-xs italic my-1">Pressione o botão + para confirmar seu acompanhate!</p>)}
 
                         {/* Lista de Acompanhantes Adicionados */}
                         {acompanhantes.length > 0 && (
